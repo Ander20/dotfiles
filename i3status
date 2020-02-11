@@ -1,18 +1,19 @@
 general {
         output_format = "i3bar"
-        colors = false
+        colors = true 
         markup = pango
         interval = 5
-        color_good = '#2f343f'
+        color_good = '#d8dee8'
 		color_degraded = '#ebcb8b'
 		color_bad = '#ba5e57'
 }
 
 #order += "memory"
+order += "path_exists VPN" 
 order += "cpu_usage"
 order += "cpu_temperature 0"
-order += "disk /"
-order += "disk /home"
+#order += "disk /"
+#order += "disk /home"
 order += "ethernet enp2s0"
 order += "wireless wlp3s0"
 order += "volume master"
@@ -24,36 +25,47 @@ order += "tztime local"
 #        format = "<span background='#a59335'>  %percentage_used RAM </span>"
 #}
 
-cpu_usage {
-        format = "<span background='#f59335'>  %usage CPU </span>"
+
+
+path_exists VPN {
+        format = "<span >  </span>"
+				format_down= ""
+				path="/proc/sys/net/ipv4/conf/tun0"
 }
 
+
+
+cpu_usage {
+
+        format = "<span >  %usage CPU </span>"
+ #       format = "<span background='#f59335'>  %usage CPU </span>"
+}
 cpu_temperature 0 {
-        format = "<span background='#bf616a'>  %degrees °C </span>"
+        format = "<span >  %degrees °C </span>"
         path = "/sys/class/thermal/thermal_zone0/temp"
 }
 
 disk "/" {
-        format = "<span background='#fec7cd'>  %free Free </span>"
+        format = "<span >  %free Free </span>"
 }
 
 disk "/home" {
-        format = "<span background='#a1d569'>  %free Free </span>"
+        format = "<span >  %free Free </span>"
 }
 
 ethernet enp2s0 {
-        format_up = "<span background='#88c0d0'>  %ip </span>"
-        format_down = "<span background='#88c0d0'>  Disconnected </span>"
+        format_up = "<span >  </span>"
+        format_down = "  "
 }
 
 wireless wlp3s0 {
-        format_up = "<span background='#b48ead'>  %essid </span>"
-        format_down = "<span background='#b48ead'>  Disconnected </span>"
+        format_up = "<span >  %essid </span>"
+        format_down = "  "
 }
 
 volume master {
-        format = "<span background='#ebcb8b'>  %volume </span>"
-        format_muted = "<span background='#ebcb8b'>  Muted </span>"
+        format = "<span >  %volume </span>"
+        format_muted = "<span >  Muted </span>"
         device = "default"
         mixer = "Master"
         mixer_idx = 0
@@ -61,7 +73,7 @@ volume master {
 
 battery 0 {
 	last_full_capacity = true
-        format = "<span background='#a3be8c'>  %status %percentage </span>"
+        format = "<span >  %status %percentage </span>"
         format_down = "No Battery"
         status_chr = "Charging"
         status_bat = "Battery"
@@ -72,6 +84,7 @@ battery 0 {
 }
 
 tztime local {
-		format = "<span background='#81a1c1'> %time </span>"
+		format = " %time" #"<span > %time </span>"
 		format_time = " %a %-d %b %H:%M"
 }
+
